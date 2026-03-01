@@ -1,3 +1,4 @@
+import os 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import predictor # Imports your predictor.py file
@@ -89,3 +90,17 @@ if __name__ == '__main__':
         app.run(debug=True, port=5000)
     else:
         print("❌ Failed to load models. Check file paths.")
+
+        if __name__ == '__main__':
+    # 1. Get the Port from Render's Environment Variable
+    port = int(os.environ.get('PORT', 5000))
+    
+    print(f"Starting Python Server on port {port}...")
+    
+    # 2. Load Models
+    if predictor.load_models():
+        print("Models loaded successfully.")
+        # 3. Run on 0.0.0.0 so Render can see it
+        app.run(host='0.0.0.0', port=port, debug=False)
+    else:
+        print("Failed to load models.")
