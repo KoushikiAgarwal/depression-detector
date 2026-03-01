@@ -101,14 +101,14 @@ const TestPage = () => {
   };
 
   return (
-    <div className="page test-page">
-      <div className="form-container">
-        <h2>Tell us about yourself</h2>
-        
-        {/* Demographics Section */}
-        <div className="demo-section">
-          
-          <div className="input-group">
+    <div className="test-page">
+      <h1 className="page-title">Predicted Result for You</h1>
+
+      {/* 1. Demographics Section */}
+      <div className="section-card">
+        <h3 style={{marginBottom: '20px'}}>Personal Information</h3>
+        <div className="demo-grid">
+          <div className="form-group">
             <label>Gender</label>
             <select name="gender" onChange={handleDemoChange}>
               <option>Male</option>
@@ -116,8 +116,8 @@ const TestPage = () => {
               <option>Other</option>
             </select>
           </div>
-
-          <div className="input-group">
+          
+          <div className="form-group">
             <label>Marital Status</label>
             <select name="marital" onChange={handleDemoChange}>
               <option>Single</option>
@@ -127,7 +127,7 @@ const TestPage = () => {
             </select>
           </div>
 
-          <div className="input-group">
+          <div className="form-group">
             <label>Age Range</label>
             <select name="age" onChange={handleDemoChange}>
               <option>Age 18-22</option>
@@ -138,7 +138,7 @@ const TestPage = () => {
             </select>
           </div>
 
-          <div className="input-group">
+          <div className="form-group">
             <label>Do you live with family?</label>
             <select name="family" onChange={handleDemoChange}>
               <option>Yes</option>
@@ -146,46 +146,49 @@ const TestPage = () => {
               <option>Sometimes</option>
             </select>
           </div>
-
         </div>
+      </div>
 
-        <h2>Over the last 2 weeks, how often have you been bothered by...</h2>
+      {/* 2. PHQ-9 Questions */}
+      <div className="section-card">
+        <h3 style={{marginBottom: '20px'}}>Assessment Questions</h3>
+        <p style={{color: '#666', marginBottom: '20px'}}>Over the last 2 weeks, how often have you been bothered by...</p>
         
-        {/* Questions Section */}
-        <div className="questions-section">
-          {questions.map((q, i) => (
-            <div key={i} className="question-item">
-              <p>{q}</p>
-              <div className="slider-group">
-                <span>Not at all</span>
-                <input 
-                  type="range" 
-                  min="0" max="3" 
-                  value={answers[`q${i+1}`]} 
-                  onChange={(e) => handleSliderChange(e, `q${i+1}`)}
-                />
-                <span>Nearly every day</span>
-                <strong>{answers[`q${i+1}`]}</strong>
-              </div>
+        {questions.map((q, i) => (
+          <div key={i} className="question-card">
+            <p className="question-text">{i+1}. {q}</p>
+            <div className="options-grid">
+              {[0, 1, 2, 3].map((val) => (
+                <button 
+                  key={val} 
+                  className={`option-btn ${answers[`q${i+1}`] === val ? 'selected' : ''}`}
+                  onClick={() => handleSliderChange({ target: { value: val } }, `q${i+1}`)}
+                >
+                  {val === 0 ? 'Not at all' : val === 1 ? 'Several' : val === 2 ? 'More than half' : 'Nearly every day'}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
 
-        <h2>Your Thoughts</h2>
-        <p className="sub-text">Share what's on your mind. This helps us understand you better.</p>
+      {/* 3. Thoughts Section */}
+      <div className="section-card">
+        <h3>Your Thoughts</h3>
+        <p style={{color: '#666', fontSize: '0.9rem'}}>Share what's on your mind </p>
         <textarea 
-          className="thoughts-input"
+          className="thoughts-box"
           placeholder="I've been feeling..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></textarea>
-
-        <button className="submit-button" onClick={calculateDepression}>
+        
+        <button className="submit-btn" onClick={calculateDepression}>
           Analyze My Mental Health
         </button>
       </div>
     </div>
   );
-};
+}; // <--- This was missing in your code!
 
 export default TestPage;

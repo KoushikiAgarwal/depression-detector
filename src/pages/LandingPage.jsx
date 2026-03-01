@@ -5,17 +5,17 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="page landing-page">
-      <div className="overlay">
-        <div className="content">
-          <h1>You Are Not Alone</h1>
-          <p className="quote">
-            "It is okay not to be okay. Your feelings are valid, and there is hope even in the darkest moments. Taking the first step to understand yourself is an act of courage."
-          </p>
-          <button className="cta-button" onClick={() => navigate('/test')}>
-            Take the Assessment
-          </button>
-        </div>
+    <div className="landing-page">
+      <div className="landing-content">
+        <h2 className="hero-quote">
+          "Sometimes the bravest thing you can do is ask for help."
+        </h2>
+        <p className="hero-subtext">
+          You are not alone. Take the first step towards understanding your mental health.
+        </p>
+        <button className="cta-button" onClick={() => navigate('/login')}>
+          Take the Assessment
+        </button>
       </div>
     </div>
   );
